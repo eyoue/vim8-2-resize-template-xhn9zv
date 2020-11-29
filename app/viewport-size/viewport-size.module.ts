@@ -9,6 +9,7 @@ import { CommonModule } from "@angular/common";
 import { IfViewportSizeDirective } from "./if-viewport-size.directive";
 import { ViewportSizeService } from "./viewport-size.service";
 import { IConfig } from "./models/iconfig";
+import { ConfigService } from "./config.service";
 
 export const CONFIG_TOKEN = new InjectionToken<IConfig>(
   "unique.string.for.config"
@@ -31,7 +32,11 @@ export class ViewportSizeModule {
   static forRoot(cfg: IConfig): ModuleWithProviders {
     return {
       ngModule: ViewportSizeModule,
-      providers: [{ provide: CONFIG_TOKEN, useValue: cfg }, ViewportSizeService]
+      providers: [
+        { provide: CONFIG_TOKEN, useValue: cfg },
+        ConfigService,
+        ViewportSizeService
+      ]
     };
   }
 }

@@ -9,6 +9,7 @@ import {
 } from "@angular/core";
 import { Subject } from "rxjs/internal/Subject";
 import { takeUntil } from "rxjs/operators";
+import { ConfigService } from "./config.service";
 import { ViewportSizeService } from "./viewport-size.service";
 
 @Directive({
@@ -24,9 +25,9 @@ export class IfViewportSizeDirective implements OnInit, OnDestroy {
   constructor(
     private templateRef: TemplateRef<null>,
     private viewContainerRef: ViewContainerRef,
-    private viewportResizeService: ViewportSizeService,
     private cd: ChangeDetectorRef,
-    private resizeService: ViewportSizeService
+    private resizeService: ViewportSizeService,
+    private configService: ConfigService
   ) {}
 
   ngOnInit() {
@@ -52,7 +53,7 @@ export class IfViewportSizeDirective implements OnInit, OnDestroy {
           : "large";
       return this.size === prop ? prop : "default";
     };
-    const config = this.viewportResizeService.config;
+    const config = this.configService.config;
     const viewportWidth = window.innerWidth;
     const conf = {
       small: () => this.toggle(),
