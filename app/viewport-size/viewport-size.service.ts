@@ -5,6 +5,8 @@ import { Subject } from "rxjs/internal/Subject";
 
 @Injectable()
 export class ViewportSizeService {
+  createdCount = 0;
+
   get onResize$(): Observable<Window> {
     return this.resizeSubject.asObservable();
   }

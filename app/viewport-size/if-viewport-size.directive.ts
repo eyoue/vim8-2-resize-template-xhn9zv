@@ -36,6 +36,7 @@ export class IfViewportSizeDirective implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => this.onResize());
   }
+
   ngOnDestroy() {
     this.ngUnsubscribe$.next();
     if (this.asyncRender) {
@@ -68,15 +69,26 @@ export class IfViewportSizeDirective implements OnInit, OnDestroy {
       clearTimeout(this.asyncRender);
     }
 
+    if (prop != "default") {
+      this.resizeService.createdCount++;
+    } else {
+      this.resizeService.createdCount > 0 && this.resizeService.createdCount--;
+    }
+
+    const maxRenderByTime = 10;
+    const renderTimeout =
+      Math.trunc(this.resizeService.createdCount / maxRenderByTime) * 10;
+
     this.asyncRender = setTimeout(() => {
       conf[prop]();
       clearTimeout(this.asyncRender);
-    }, 0);
+    }, renderTimeout);
   }
 
   toggle() {
     if (!this.isCreated) {
       this.create();
+      this.resizeService.createdCount++;
     }
   }
 
