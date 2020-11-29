@@ -7,5 +7,4 @@ import { Component } from "@angular/core";
 })
 export class AppComponent {
   name = "Angular 5";
-  elems = new Array(100).fill(0);
 }

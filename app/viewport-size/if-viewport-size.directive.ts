@@ -12,6 +12,8 @@ import { takeUntil } from "rxjs/operators";
 import { ConfigService } from "./config.service";
 import { ViewportSizeService } from "./viewport-size.service";
 
+const MAX_RENDER_BY_TIME = 10; // Кол-во асинхронных тасков в еденицу времени
+
 @Directive({
   selector: "[ifViewportSize]"
 })
@@ -75,9 +77,8 @@ export class IfViewportSizeDirective implements OnInit, OnDestroy {
       this.resizeService.createdCount > 0 && this.resizeService.createdCount--;
     }
 
-    const maxRenderByTime = 10;
     const renderTimeout =
-      Math.trunc(this.resizeService.createdCount / maxRenderByTime) * 10;
+      Math.trunc(this.resizeService.createdCount / MAX_RENDER_BY_TIME) * 10;
 
     this.asyncRender = setTimeout(() => {
       conf[prop]();
