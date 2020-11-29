@@ -12,7 +12,7 @@ import { IConfig } from "./models/iconfig";
 import { ConfigService } from "./config.service";
 
 export const CONFIG_TOKEN = new InjectionToken<IConfig>(
-  "unique.string.for.config"
+  "app.config"
 );
 
 @NgModule({
