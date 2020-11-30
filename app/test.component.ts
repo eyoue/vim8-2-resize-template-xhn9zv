@@ -6,14 +6,6 @@ import { Component, Input, OnDestroy, OnInit } from "@angular/core";
     {{ value }}
   `
 })
-export class TestComponent implements OnInit, OnDestroy {
+export class TestComponent {
   @Input() value: number;
-
-  ngOnInit() {
-    console.log("init");
-  }
-
-  ngOnDestroy() {
-    console.log("destroy");
-  }
 }
